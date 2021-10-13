@@ -1,4 +1,4 @@
-package ru.vsu.vadim.foxAndGeeese.gameservice;
+package ru.vsu.vadim.foxAndGeeese.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import ru.vsu.vadim.foxAndGeeese.gameworld.GameField;
 import ru.vsu.vadim.foxAndGeeese.piece.Fox;
 import ru.vsu.vadim.foxAndGeeese.piece.Guess;
 
-import static ru.vsu.vadim.foxAndGeeese.gameservice.Move.checkMovesForGeese;
+import static ru.vsu.vadim.foxAndGeeese.game.Move.checkMovesForGeese;
 
 public class GameController {
     //заполняет поле фигурами

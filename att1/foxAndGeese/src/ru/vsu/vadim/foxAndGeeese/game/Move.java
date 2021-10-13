@@ -1,4 +1,4 @@
-package ru.vsu.vadim.foxAndGeeese.gameservice;
+package ru.vsu.vadim.foxAndGeeese.game;
 
 import ru.vsu.vadim.foxAndGeeese.gameworld.GameField;
 
