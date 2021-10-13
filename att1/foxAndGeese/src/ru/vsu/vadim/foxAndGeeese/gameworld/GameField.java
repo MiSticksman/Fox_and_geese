@@ -1,6 +1,11 @@
 package ru.vsu.vadim.foxAndGeeese.gameworld;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.vsu.vadim.foxAndGeeese.graph.Graph;
 import ru.vsu.vadim.foxAndGeeese.piece.IPiece;
+
+import java.util.ArrayList;
 
 public class GameField {
 
@@ -19,6 +24,9 @@ public class GameField {
             {17, 23, 25, 29}, {18, 24, 26}, {19, 25}, {22, 28, 30}, {23, 27, 29, 31},
             {24, 28, 32}, {27, 31}, {28, 30, 32}, {29, 31},
     };
+    private static final int FIELD_SIZE_FOR_GRIDPANE = 7;
+
+    private static final Logger log = LoggerFactory.getLogger(GameField.class);
 
     public GameField() {
         graph = new Graph<>();
@@ -26,6 +34,7 @@ public class GameField {
             graph.addVertex(new Cell<>(i, null));
         }
         addConenections();
+        log.info("The field has been created");
     }
 
     public void addPiece(IPiece piece, int number) {
@@ -35,14 +44,29 @@ public class GameField {
     public void addConenections() {
         for (int i = 0; i < connections.length; i++) {
             for (int j = 0; j < connections[i].length; j++) {
-                //if (graph.getVertex(i) != null) {
                     graph.createEdge(i, connections[i][j]);
-                //}
             }
         }
     }
 
     public int getFieldSize() {
         return FIELD_SIZE;
+    }
+
+    public int getFieldSizeForGridpane() {
+        return FIELD_SIZE_FOR_GRIDPANE;
+    }
+
+    public IPiece getPiece(int index) {
+        return graph.getVertex(index).getData();
+    }
+
+    public void setPiece(int index, IPiece piece) {
+        graph.getVertex(index).setData(piece);
+    }
+
+    public ArrayList<Integer> getNeighbours(int index) {
+        ArrayList<Integer> list = new ArrayList<>(graph.getConnections(index));
+        return list;
     }
 }

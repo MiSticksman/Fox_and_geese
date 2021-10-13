@@ -17,9 +17,6 @@
       </list>
     </option>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/foxAndGeese/src/ru/vsu/vadim/foxAndGeeese/gameworld/Graph.java" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="ProjectId" id="1zN7idHwOEQG6wVrCkW8oRPheem" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -28,7 +25,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/foxAndGeese/lib/javafx-sdk-17.0.0.1/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/foxAndGeese" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -41,7 +38,7 @@
       <selectedOptions>
         <option name="environmentVariables" visible="false" />
       </selectedOptions>
-      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$/foxAndGeese/lib/javafx-sdk-17.0.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml " />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$/foxAndGeese/lib/openjfx-17.0.0.1_linux-x64_bin-sdk/javafx-sdk-17.0.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

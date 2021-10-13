@@ -1,0 +1,65 @@
+13.10.2021 00:45:34 [main] INFO   r.vsu.vadim.foxAndGeeese.Main - Just a log message.
+13.10.2021 00:45:34 [main] DEBUG  r.vsu.vadim.foxAndGeeese.Main - Message for debug level.
+13.10.2021 00:45:34 [main] ERROR  r.vsu.vadim.foxAndGeeese.Main - Failed to read file /file/does/not/exist.
+java.nio.file.NoSuchFileException: /file/does/not/exist
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:219)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:380)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:432)
+	at java.base/java.nio.file.Files.readAllBytes(Files.java:3288)
+	at ru.vsu.vadim.foxAndGeeese.Main.main(Main.java:25)
+13.10.2021 00:45:34 [main] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 00:45:34 [main] INFO   r.v.v.f.g.GameController - The figure was rearranged from  13 to 14
+13.10.2021 01:19:03 [main] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 01:19:03 [main] INFO   r.v.v.f.g.GameController - The figure was rearranged from  13 to 14
+13.10.2021 02:18:39 [main] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 02:18:39 [main] INFO   r.v.v.f.g.GameController - The figure was rearranged from  13 to 14
+13.10.2021 02:18:40 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 02:57:51 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 02:57:51 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:01:01 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:01:01 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:02:09 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:02:09 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:05:25 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:05:25 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:05:38 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:05:38 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:06:02 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:06:02 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:07:34 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:07:34 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:08:57 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:08:57 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:10:02 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:10:02 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:11:19 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:11:19 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:12:43 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:12:43 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 03:16:23 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 03:16:23 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:04:09 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:05:01 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:05:37 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:05:37 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:07:14 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:07:14 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:08:41 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:08:41 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:10:07 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:10:07 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:11:06 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:11:06 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:12:48 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:12:48 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:13:04 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:13:04 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:13:24 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:13:24 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:23:12 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:23:12 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
+13.10.2021 04:25:39 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+13.10.2021 04:25:39 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane was full
