@@ -7,8 +7,8 @@ javac —module-path "%javafxHome%"
 
 —add-modules ALL-MODULE-PATH
 -d bin %mainPath%\*.java
--d bin %mainPath%\entity\feature\*.java
--d bin %mainPath%\entity\field\*.java
+-d bin %mainPath%\gameworld\cell\*.java
+-d bin %mainPath%\gameworld\gamefield\*.java
 -d bin %mainPath%\graph\*.java
--d bin %mainPath%\gui\*.java
--d bin %mainPath%\service\*.java
+-d bin %mainPath%\view\*.java
+-d bin %mainPath%\game\*.java
