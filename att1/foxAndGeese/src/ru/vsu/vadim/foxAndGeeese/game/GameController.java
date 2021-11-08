@@ -11,7 +11,7 @@ import static ru.vsu.vadim.foxAndGeeese.game.Move.checkMovesForGeese;
 public class GameController {
     //заполняет поле фигурами
     //знает о поле и о том как ходят фигуры
-    private GameField gameField = new GameField();
+    private final GameField gameField = new GameField();
 
     private static final Logger log = LoggerFactory.getLogger(GameController.class);
 
@@ -24,6 +24,10 @@ public class GameController {
                 gameField.addPiece(new Fox(), i);
             }
         }
+    }
+
+    public GameField getGameField() {
+        return gameField;
     }
 
     public void movesFromTo(int index1, int index2) {

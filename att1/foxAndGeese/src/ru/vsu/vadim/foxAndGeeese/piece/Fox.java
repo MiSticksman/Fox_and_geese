@@ -1,5 +1,7 @@
 package ru.vsu.vadim.foxAndGeeese.piece;
 
-public class Fox implements IPiece {
+import javafx.scene.Node;
+
+public class Fox  implements IPiece {
 
 }
