@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class GameField {
 
-    private Graph<Cell<IPiece>> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис.
+    private Graph<Cell<IPiece>> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис
 
     private int [][]  connections = new int[][] {
             {1, 3},
