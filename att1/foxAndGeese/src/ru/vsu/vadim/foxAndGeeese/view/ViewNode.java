@@ -1,8 +1,8 @@
 package ru.vsu.vadim.foxAndGeeese.view;
 
-import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 import ru.vsu.vadim.foxAndGeeese.piece.IPiece;
+
 
 public class ViewNode<T> extends Circle {
 
@@ -19,5 +19,4 @@ public class ViewNode<T> extends Circle {
     public void setNode(IPiece node) {
         this.node = node;
     }
-
 }

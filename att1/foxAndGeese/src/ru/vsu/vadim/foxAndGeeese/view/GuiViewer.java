@@ -8,7 +8,7 @@ public class GuiViewer extends Application {
     private final int WIDTH = 800;
     private final int HEIGHT = 800;
 
-
+    @Override
     public void start(Stage stage) {
         Pane pane = new Pane();
         Scene scene = new Scene(pane.getPane(), WIDTH, HEIGHT);

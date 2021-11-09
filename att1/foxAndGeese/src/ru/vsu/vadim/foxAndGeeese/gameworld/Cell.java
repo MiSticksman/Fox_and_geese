@@ -5,6 +5,7 @@ public class Cell<T>  {
     private int number;
     private T data;
 
+
     public Cell(int number, T data) {
         this.number = number;
         this.data = data;

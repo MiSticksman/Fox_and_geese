@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeeese.gameworld.GameField;
 import ru.vsu.vadim.foxAndGeeese.piece.Fox;
 import ru.vsu.vadim.foxAndGeeese.piece.Guess;
+import ru.vsu.vadim.foxAndGeeese.piece.IPiece;
 
 import static ru.vsu.vadim.foxAndGeeese.game.Move.checkMovesForGeese;
 
@@ -26,8 +27,8 @@ public class GameController {
         }
     }
 
-    public GameField getGameField() {
-        return gameField;
+    public IPiece getPiece(int number) {
+        return gameField.getPiece(number);
     }
 
     public void movesFromTo(int index1, int index2) {

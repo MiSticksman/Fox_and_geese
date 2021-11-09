@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class GameField {
 
-    private Graph<Cell<IPiece>> graph;
-    private static final int FIELD_SIZE = 33;
+    private Graph<Cell<IPiece>> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис.
+
     private int [][]  connections = new int[][] {
             {1, 3},
             {0, 2, 4},
@@ -24,13 +24,12 @@ public class GameField {
             {17, 23, 25, 29}, {18, 24, 26}, {19, 25}, {22, 28, 30}, {23, 27, 29, 31},
             {24, 28, 32}, {27, 31}, {28, 30, 32}, {29, 31},
     };
-    private static final int FIELD_SIZE_FOR_GRIDPANE = 7;
 
     private static final Logger log = LoggerFactory.getLogger(GameField.class);
 
     public GameField() {
         graph = new Graph<>();
-        for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int i = 0; i < 33; i++) {
             graph.addVertex(new Cell<>(i, null));
         }
         addConenections();
@@ -50,12 +49,9 @@ public class GameField {
     }
 
     public int getFieldSize() {
-        return FIELD_SIZE;
+        return graph.getCountOfVertexes();
     }
 
-    public int getFieldSizeForGridpane() {
-        return FIELD_SIZE_FOR_GRIDPANE;
-    }
 
     public IPiece getPiece(int index) {
         return graph.getVertex(index).getData();

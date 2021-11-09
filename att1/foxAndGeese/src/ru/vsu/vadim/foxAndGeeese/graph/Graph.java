@@ -35,4 +35,8 @@ public class Graph<T>  {
         return listConnections.get(index);
     }
 
+    public int getCountOfVertexes() {
+        return listVertex.size();
+    }
+
 }
