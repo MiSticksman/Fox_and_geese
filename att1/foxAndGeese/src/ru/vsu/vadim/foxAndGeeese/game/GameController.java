@@ -13,6 +13,7 @@ public class GameController {
     //заполняет поле фигурами
     //знает о поле и о том как ходят фигуры
     private final GameField gameField = new GameField();
+    private boolean priority = true;
 
     private static final Logger log = LoggerFactory.getLogger(GameController.class);
 
@@ -32,10 +33,21 @@ public class GameController {
     }
 
     public void movesFromTo(int index1, int index2) {
-        if (checkMovesForGeese(gameField, index1, index2)) {
-            gameField.setPiece(index2, gameField.getPiece(index1));
-            gameField.setPiece(index1, null);
-            log.info("The figure was rearranged from  " + index1 + " to " + index2);
+        if (priority && (gameField.getPiece(index1) instanceof Fox)) {
+            if (checkMovesForGeese(gameField, index1, index2)) {
+                gameField.setPiece(index2, gameField.getPiece(index1));
+                gameField.setPiece(index1, null);
+                priority = false;
+                log.info("The fox was rearranged from  " + index1 + " to " + index2);
+            }
+        } else if ((!priority) && (gameField.getPiece(index1) instanceof Guess)) {
+            if (checkMovesForGeese(gameField, index1, index2)) {
+                gameField.setPiece(index2, gameField.getPiece(index1));
+                gameField.setPiece(index1, null);
+                priority = true;
+                log.info("The goose was rearranged from  " + index1 + " to " + index2);
+            }
         }
     }
+
 }

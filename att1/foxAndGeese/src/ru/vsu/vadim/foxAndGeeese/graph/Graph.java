@@ -7,7 +7,6 @@ public class Graph<T>  {
     private ArrayList<LinkedList<Integer>> listConnections = new ArrayList<>();
     private ArrayList<T> listVertex = new ArrayList<>();
     // сделать связи по направлениям
-
     public Graph() {
     }
 
