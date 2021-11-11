@@ -347,3 +347,8 @@
 10.11.2021 21:26:43 [JavaFX Application Thread] INFO   r.v.v.f.game.GameController - The fox was rearranged from  25 to 24
 10.11.2021 21:26:45 [JavaFX Application Thread] INFO   r.v.v.f.game.GameController - The goose was rearranged from  18 to 25
 10.11.2021 21:26:55 [main] INFO   r.vsu.vadim.foxAndGeeese.Main - Application started.
+11.11.2021 18:01:12 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+11.11.2021 18:01:12 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane is full
+11.11.2021 18:01:14 [JavaFX Application Thread] INFO   r.v.v.f.game.GameController - The fox was rearranged from  16 to 23
+11.11.2021 18:03:52 [JavaFX Application Thread] INFO   r.v.v.f.gameworld.GameField - The field has been created
+11.11.2021 18:03:52 [JavaFX Application Thread] INFO   r.v.v.foxAndGeeese.view.Pane - The pane is full
