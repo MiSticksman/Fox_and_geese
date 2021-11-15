@@ -32,22 +32,34 @@ public class GameController {
         return gameField.getPiece(number);
     }
 
-    public void movesFromTo(int index1, int index2) {
-        if (priority && (gameField.getPiece(index1) instanceof Fox)) {
-            if (checkMovesForGeese(gameField, index1, index2)) {
-                gameField.setPiece(index2, gameField.getPiece(index1));
-                gameField.setPiece(index1, null);
+    public void movesFromTo(int from, int to) throws Exception {
+        if (priority && (gameField.getPiece(from) instanceof Fox)) {
+            int acrossOne = gameField.indexOfConnectedAcrossOne(from, to);
+            if (acrossOne != -1 && from != to && (!(gameField.getPiece(to) instanceof Guess))) {
+                gameField.setPiece(to, gameField.getPiece(from));
+                gameField.setPiece(from, null);
+                gameField.setPiece(acrossOne, null);
                 priority = false;
-                log.info("The fox was rearranged from  " + index1 + " to " + index2);
+                }
+            if ((priority) && (gameField.getPiece(from) instanceof Fox)) {
+                if (checkMovesForGeese(gameField, from, to)) {
+                    gameField.setPiece(to, gameField.getPiece(from));
+                    gameField.setPiece(from, null);
+                    priority = false;
+                    log.info("The fox was rearranged from  " + from + " to " + to);
+                }
             }
-        } else if ((!priority) && (gameField.getPiece(index1) instanceof Guess)) {
-            if (checkMovesForGeese(gameField, index1, index2)) {
-                gameField.setPiece(index2, gameField.getPiece(index1));
-                gameField.setPiece(index1, null);
+        } else if ((!priority) && (gameField.getPiece(from) instanceof Guess)) {
+            if (checkMovesForGeese(gameField, from, to)) {
+                gameField.setPiece(to, gameField.getPiece(from));
+                gameField.setPiece(from, null);
                 priority = true;
-                log.info("The goose was rearranged from  " + index1 + " to " + index2);
+                log.info("The goose was rearranged from  " + from + " to " + to);
             }
         }
     }
 
+    public boolean getPriority() {
+        return priority;
+    }
 }

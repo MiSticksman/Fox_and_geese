@@ -9,7 +9,6 @@ public class Main {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
-
     public static void main(String[] args) {
         Application.launch(GuiViewer.class);
         log.info("Application started.");

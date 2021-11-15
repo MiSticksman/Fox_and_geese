@@ -42,7 +42,11 @@ public class Pane {
                         if (posClicked == null) {
                             posClicked = finalNumber;
                         } else {
-                            game.movesFromTo(posClicked, finalNumber);
+                            try {
+                                game.movesFromTo(posClicked, finalNumber);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                             repaint();
                             posClicked = null;
                         }

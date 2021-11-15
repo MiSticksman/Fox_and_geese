@@ -5,12 +5,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class GuiViewer extends Application {
-    private final int WIDTH = 800;
-    private final int HEIGHT = 800;
 
     @Override
     public void start(Stage stage) {
         Pane pane = new Pane();
+        int WIDTH = 800;
+        int HEIGHT = 800;
         Scene scene = new Scene(pane.getPane(), WIDTH, HEIGHT);
         stage.setScene(scene);
         stage.setTitle("FoxAndGeese");

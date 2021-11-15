@@ -2,18 +2,20 @@ package ru.vsu.vadim.foxAndGeese.game;
 
 import ru.vsu.vadim.foxAndGeese.gameworld.GameField;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Move  {
-    public static boolean checkMovesForGeese(GameField field, int index1, int index2) {
-        if (field.getPiece(index1) != null) {
-            ArrayList<Integer> list = field.getNeighbours(index1);
+    public static boolean checkMovesForGeese(GameField field, int from, int to) {
+        if (field.getPiece(from) != null) {
+            List<Integer> list = field.getNeighbours(from);
             for (Integer a: list) {
-                if (a == index2 && field.getPiece(index2) == null) {
+                if (a == to && field.getPiece(to) == null) {
                     return true;
                 }
             }
         }
         return false;
     }
+
+
 }
