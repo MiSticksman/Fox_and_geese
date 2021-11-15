@@ -1,6 +1,9 @@
 package ru.vsu.vadim.foxAndGeese.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,19 +15,35 @@ import ru.vsu.vadim.foxAndGeese.piece.*;
 
 public class Pane {
 
-    private GridPane gridPane;
-    private GameController game;
+    private final GridPane gridPane;
+    private final GameController game;
     private static final Logger log = LoggerFactory.getLogger(Pane.class);
     private Integer posClicked = null;
+    private Button btn = new Button("EndJump");
+
+
 
     public Pane() {
         gridPane = new GridPane();
         game = new GameController();
+        btn.setPrefWidth(80);
+        btn.setTextFill(Color.RED);
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                game.changePriority();
+                repaint();
+            }
+        });
+        btn.setVisible(false);
+        gridPane.add(btn, 0, 0);
+
         draw();
     }
 
     public void draw() {
         int number = 0;
+
         for (int row = 6; row >= 0; row--) {
             for (int col = 0; col <= 6 ; col++) {
                 if ((row < 2 || row > 4) && (col > 1 && col < 5) || (row > 1 && row < 5)) {
@@ -61,24 +80,24 @@ public class Pane {
             }
         }
         log.info("The pane is full");
-
     }
 
     private void repaint() {
+        btn.setVisible(game.getIsJump());
         for (Node node : gridPane.getChildren()) {
-            ViewNode viewNode = (ViewNode) node;
-            int n = viewNode.getNumber();
-            viewNode.setFill(Color.web("#009999"));
-            if (game.getPiece(n) instanceof Guess) {
-                viewNode.setFill(Color.GRAY.darker());
-            }
-            if (game.getPiece(n) instanceof Fox) {
-                viewNode.setFill(Color.ORANGE);
+            if (node instanceof ViewNode) {
+                ViewNode viewNode = (ViewNode) node;
+                int n = viewNode.getNumber();
+                viewNode.setFill(Color.web("#009999"));
+                if (game.getPiece(n) instanceof Guess) {
+                    viewNode.setFill(Color.GRAY.darker());
+                }
+                if (game.getPiece(n) instanceof Fox) {
+                    viewNode.setFill(Color.ORANGE);
+                }
             }
         }
     }
-
-
 
     public GridPane getPane() {
         return gridPane;

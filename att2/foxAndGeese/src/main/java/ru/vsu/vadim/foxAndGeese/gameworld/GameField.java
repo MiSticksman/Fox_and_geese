@@ -87,4 +87,8 @@ public class GameField {
                 .map(Cell::getNumber)
                 .collect(Collectors.toList());
     }
+
+    public List<Cell<IPiece>> getCountOfGeese() {
+        for (Cell cell: graph)
+    }
 }

@@ -2,10 +2,16 @@ package ru.vsu.vadim.foxAndGeese.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.vsu.vadim.foxAndGeese.gameworld.Cell;
 import ru.vsu.vadim.foxAndGeese.gameworld.GameField;
 import ru.vsu.vadim.foxAndGeese.piece.Fox;
 import ru.vsu.vadim.foxAndGeese.piece.Guess;
 import ru.vsu.vadim.foxAndGeese.piece.IPiece;
+
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static ru.vsu.vadim.foxAndGeese.game.Move.checkMovesForGeese;
 
@@ -14,6 +20,8 @@ public class GameController {
     //знает о поле и о том как ходят фигуры
     private final GameField gameField = new GameField();
     private boolean priority = true;
+    private boolean isJump = false;
+    private int countOfGeese = 17;
 
     private static final Logger log = LoggerFactory.getLogger(GameController.class);
 
@@ -33,30 +41,44 @@ public class GameController {
     }
 
     public void movesFromTo(int from, int to) throws Exception {
-        if (priority && (gameField.getPiece(from) instanceof Fox)) {
+        if (priority && from != to && (gameField.getPiece(from) instanceof Fox)) {
             int acrossOne = gameField.indexOfConnectedAcrossOne(from, to);
-            if (acrossOne != -1 && from != to && (!(gameField.getPiece(to) instanceof Guess))) {
+            if (acrossOne != -1  && (!(gameField.getPiece(to) instanceof Guess))) {
                 gameField.setPiece(to, gameField.getPiece(from));
                 gameField.setPiece(from, null);
                 gameField.setPiece(acrossOne, null);
-                priority = false;
-                }
-            if ((priority) && (gameField.getPiece(from) instanceof Fox)) {
-                if (checkMovesForGeese(gameField, from, to)) {
-                    gameField.setPiece(to, gameField.getPiece(from));
-                    gameField.setPiece(from, null);
-                    priority = false;
-                    log.info("The fox was rearranged from  " + from + " to " + to);
-                }
+                isJump = true;
+                log.info("The fox was jumped from  " + from + " to " + to);
+            }
+            if (!isJump && checkMovesForGeese(gameField, from, to)) {
+                gameField.setPiece(to, gameField.getPiece(from));
+                gameField.setPiece(from, null);
+                changePriority();
+                isJump = false;
+                log.info("The fox was rearranged from  " + from + " to " + to);
             }
         } else if ((!priority) && (gameField.getPiece(from) instanceof Guess)) {
             if (checkMovesForGeese(gameField, from, to)) {
                 gameField.setPiece(to, gameField.getPiece(from));
                 gameField.setPiece(from, null);
-                priority = true;
+                changePriority();
                 log.info("The goose was rearranged from  " + from + " to " + to);
             }
         }
+    }
+
+    public void checkWinner() {
+    }
+
+    public void changePriority() {
+       priority = !priority;
+       if (!priority) {
+           isJump = false;
+       }
+    }
+
+    public boolean getIsJump() {
+        return isJump;
     }
 
     public boolean getPriority() {

@@ -7,7 +7,6 @@ import java.util.*;
 
 public class Graph<T>  {
 
-    //private List<LinkedList<Integer>> listConnections = new ArrayList<>();
     private List<Cell<T>> listVertex = new ArrayList<>();
     int vCount;
     int eCount;
@@ -71,5 +70,7 @@ public class Graph<T>  {
     public int getCountOfVertexes() {
         return listVertex.size();
     }
+
+    public
 
 }
