@@ -1,5 +1,6 @@
 package ru.vsu.vadim.foxAndGeese.view;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -10,13 +11,14 @@ import javafx.scene.shape.Circle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.game.*;
+import ru.vsu.vadim.foxAndGeese.gameworld.GameField;
 import ru.vsu.vadim.foxAndGeese.piece.*;
 
 
 public class Pane {
 
     private final GridPane gridPane;
-    private final GameController game;
+    private GameController game;
     private static final Logger log = LoggerFactory.getLogger(Pane.class);
     private Integer posClicked = null;
     private Button btn = new Button("EndJump");
@@ -26,7 +28,7 @@ public class Pane {
     public Pane() {
         gridPane = new GridPane();
         game = new GameController();
-        btn.setPrefWidth(80);
+        btn.setPrefWidth(70);
         btn.setTextFill(Color.RED);
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -37,7 +39,6 @@ public class Pane {
         });
         btn.setVisible(false);
         gridPane.add(btn, 0, 0);
-
         draw();
     }
 
@@ -71,7 +72,8 @@ public class Pane {
                         }
                     });
                     gridPane.add(circle, col, row);
-                    circle.radiusProperty().bind(gridPane.widthProperty().divide(2 * 7));
+                    circle.radiusProperty().bind(Bindings.min(gridPane.widthProperty().divide(15),
+                            gridPane.heightProperty().divide(15)));
                     number++;
                 }
                 if (number > 32) {
@@ -80,6 +82,11 @@ public class Pane {
             }
         }
         log.info("The pane is full");
+    }
+
+    public void newGame() {
+        game.newGame();
+        draw();
     }
 
     private void repaint() {

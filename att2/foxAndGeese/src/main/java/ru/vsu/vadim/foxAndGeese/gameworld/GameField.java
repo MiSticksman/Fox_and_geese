@@ -3,6 +3,8 @@ package ru.vsu.vadim.foxAndGeese.gameworld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.graph.Graph;
+import ru.vsu.vadim.foxAndGeese.piece.Fox;
+import ru.vsu.vadim.foxAndGeese.piece.Guess;
 import ru.vsu.vadim.foxAndGeese.piece.IPiece;
 import ru.vsu.vadim.foxAndGeese.utils.GameUtils;
 
@@ -13,6 +15,9 @@ import java.util.stream.Collectors;
 public class GameField {
 
     private Graph<IPiece> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис
+
+
+    private  int countOfGeese;
 
     private final int [][]  connections = new int[][] {
             {1, 3, -1, -1}, {2, 4, 0, -1}, {-1, 5, 1, -1}, {4, 8, -1, 0}, {5, 9, 3, 1},
@@ -72,7 +77,7 @@ public class GameField {
             for (int i = 0; i < 4; i++) {
                 Cell<IPiece> connected1 = piece1.connectedOn(i);
                 Cell<IPiece> connected2 = piece2.connectedOn(GameUtils.getOppositeDirection(i));
-                if (connected1 != null && connected2 != null && connected1.getData() != null && connected1.equals(connected2)) {
+                if (connected1 != null && connected1.getData() != null && connected1.equals(connected2)) {
                     return connected1.getNumber();
                 }
             }
@@ -82,13 +87,39 @@ public class GameField {
         return -1;
     }
 
-    public List<Integer> getNeighbours(int index) {
+    public boolean loseOfFOx() throws Exception {
+        Cell<IPiece> foxPiece = graph.getIndexOfFox();
+        List<Cell<IPiece>> list = graph.getConnections(foxPiece.getNumber());
+        int i = 0;
+        if (foxPiece.getData() instanceof Fox) {
+            for (Cell<IPiece> cell: list) {
+                if (cell == null) {
+                    i++;
+                    continue;
+                }
+                if (cell.getData() instanceof Guess ) {
+                    if (cell.connectedOn(i) == null || cell.connectedOn(i).getData() instanceof Guess) {
+                        continue;
+                    }
+                } else return false;
+                i++;
+            }
+        } else return false;
+        return true;
+    }
+
+
+    public List<Integer> getIndexesOfConnections(int index) {
         return graph.getConnections(index).stream().filter(Objects::nonNull)
                 .map(Cell::getNumber)
                 .collect(Collectors.toList());
     }
 
-    public List<Cell<IPiece>> getCountOfGeese() {
-        for (Cell cell: graph)
+    public List<Cell<IPiece>> getNeighboursCells(int index) {
+        return graph.getConnections(index);
+    }
+
+    public int getCountOfGeese() {
+        return countOfGeese = graph.getCountOfGeese();
     }
 }

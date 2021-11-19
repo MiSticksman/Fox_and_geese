@@ -1,6 +1,9 @@
 package ru.vsu.vadim.foxAndGeese.graph;
 
 import ru.vsu.vadim.foxAndGeese.gameworld.Cell;
+import ru.vsu.vadim.foxAndGeese.piece.Fox;
+import ru.vsu.vadim.foxAndGeese.piece.Guess;
+import ru.vsu.vadim.foxAndGeese.piece.IPiece;
 import ru.vsu.vadim.foxAndGeese.utils.GameUtils;
 
 import java.util.*;
@@ -71,6 +74,22 @@ public class Graph<T>  {
         return listVertex.size();
     }
 
-    public
+    public int getCountOfGeese() {
+        List<Integer> list = new ArrayList<>();
+        for (Cell cell: listVertex) {
+            if (cell.getData() instanceof Guess) {
+                list.add(cell.getNumber());
+            }
+        }
+        return list.size();
+    }
 
+    public Cell<T> getIndexOfFox() {
+        for (Cell<T> cell: listVertex) {
+            if (cell.getData() instanceof Fox) {
+                return cell;
+            }
+        }
+        return null;
+    }
 }

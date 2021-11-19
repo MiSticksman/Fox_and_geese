@@ -2,19 +2,55 @@ package ru.vsu.vadim.foxAndGeese.view;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+
+
+import java.awt.*;
 
 public class GuiViewer extends Application {
+    private static GuiViewer viewer;
+    private Pane pane;
+    private BorderPane borderPane;
 
     @Override
     public void start(Stage stage) {
-        Pane pane = new Pane();
+        viewer = this;
+        pane = new Pane();
+        borderPane = new BorderPane();
         int WIDTH = 800;
         int HEIGHT = 800;
-        Scene scene = new Scene(pane.getPane(), WIDTH, HEIGHT);
-        stage.setScene(scene);
+        createMenu();
+        pane.getPane().setAlignment(Pos.CENTER);
+        borderPane.setCenter(pane.getPane());
+        stage.setScene(new Scene(borderPane, WIDTH, HEIGHT));
         stage.setTitle("FoxAndGeese");
         stage.setResizable(false);
         stage.show();
     }
+    public void createMenu() {
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("Main");
+        Menu baseScenario = new Menu("Scenario");
+        baseScenario.setOnAction(actionEvent -> {
+
+        });
+        MenuItem newGameItem = new MenuItem("New game");
+        newGameItem.setOnAction(actionEvent -> {
+            pane.newGame();
+        });
+        MenuItem exitItem = new MenuItem("Exit");
+        //fileMenu.getItems().addAll(newItem, saveFileItem, loadFileItem, exitItem);
+        menuBar.getMenus().addAll(fileMenu, baseScenario);
+        borderPane.setTop(menuBar);
+
+        fileMenu.getItems().addAll(newGameItem, exitItem);
+    }
+
 }
