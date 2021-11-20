@@ -57,4 +57,6 @@ public class GuiViewer extends Application {
         fileMenu.getItems().addAll(newGameItem, exitItem);
     }
 
+    //todo кнопка сохранения игры и кнопка загрузки прошлой игровой сессии
+
 }
