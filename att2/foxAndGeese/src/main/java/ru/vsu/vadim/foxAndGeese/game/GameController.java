@@ -65,9 +65,7 @@ public class GameController {
                 log.info("The goose was rearranged from  " + from + " to " + to);
             }
         }
-        if (!isJump) {
             checkWinner(countOfGeese);
-        }
     }
 
     public void checkWinner(int countOfGeese) throws Exception {
@@ -82,11 +80,11 @@ public class GameController {
     }
 
     public void newGame() {
-        gameField = new GameField();
         priority = true;
         isJump = false;
-        this.initialFillingOfTheField();
+        initialFillingOfTheField();
         gameStates = GameStates.PLAYING;
+        log.info("Game restarted");
     }
 
     public void changePriority() {

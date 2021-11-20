@@ -1,6 +1,7 @@
 package ru.vsu.vadim.foxAndGeese.view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -36,20 +37,23 @@ public class GuiViewer extends Application {
     }
     public void createMenu() {
         MenuBar menuBar = new MenuBar();
-        Menu fileMenu = new Menu("Main");
+        Menu fileMenu = new Menu("Parameters");
         Menu baseScenario = new Menu("Scenario");
         baseScenario.setOnAction(actionEvent -> {
-
+            //todo место для вызова сценария
         });
         MenuItem newGameItem = new MenuItem("New game");
         newGameItem.setOnAction(actionEvent -> {
             pane.newGame();
         });
         MenuItem exitItem = new MenuItem("Exit");
-        //fileMenu.getItems().addAll(newItem, saveFileItem, loadFileItem, exitItem);
+        exitItem.setOnAction(actionEvent -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
         menuBar.getMenus().addAll(fileMenu, baseScenario);
         borderPane.setTop(menuBar);
-
         fileMenu.getItems().addAll(newGameItem, exitItem);
     }
 
