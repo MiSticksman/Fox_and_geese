@@ -1,13 +1,21 @@
 package ru.vsu.vadim.foxAndGeese.gameworld;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
-public class Cell<T>  {
+@JsonAutoDetect
+public class Cell<T>  implements Serializable {
 
+    @JsonIgnore
     private int number;
+    @JsonIgnore
     private T data;
+    @JsonIgnore
     private Cell<T>[] communications;
 
     public Cell(int number, T data) {
@@ -15,6 +23,7 @@ public class Cell<T>  {
         this.data = data;
         this.communications = new Cell[4];
     }
+    public Cell(){}
 
     public int getNumber() {
         return number;
@@ -54,4 +63,29 @@ public class Cell<T>  {
         return number == cell.number;
     }
 
+    @JsonProperty
+    public String cells() {
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < 4; i++) {
+            Cell<T> cell = communications[i];
+            if (i != 3) {
+                if (cell != null) {
+                    str.append(cell.getNumber()).append(", ");
+                } else {
+                    str.append("-1, ");
+                }
+            } else {
+                if (cell != null) {
+                    str.append(cell.getNumber());
+                } else {
+                    str.append("-1");
+                }
+            }
+        }
+        return "Cell{" +
+                "number= " + number +
+                ", data= " + (data == null? "null" : data) +
+                ", communications= " + "{" + str + "}" +
+                '}';
+    }
 }

@@ -1,10 +1,11 @@
 package ru.vsu.vadim.foxAndGeese.gameworld;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.graph.Graph;
 import ru.vsu.vadim.foxAndGeese.piece.Fox;
-import ru.vsu.vadim.foxAndGeese.piece.Guess;
+import ru.vsu.vadim.foxAndGeese.piece.Goose;
 import ru.vsu.vadim.foxAndGeese.piece.IPiece;
 import ru.vsu.vadim.foxAndGeese.utils.GameUtils;
 
@@ -12,12 +13,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@JsonAutoDetect
 public class GameField {
 
-    private Graph<IPiece> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис
-
-
-    private  int countOfGeese;
+    private final Graph<IPiece> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис
 
     private final int [][]  connections = new int[][] {
             {1, 3, -1, -1}, {2, 4, 0, -1}, {-1, 5, 1, -1}, {4, 8, -1, 0}, {5, 9, 3, 1},
@@ -57,13 +56,16 @@ public class GameField {
         return graph.getCountOfVertexes();
     }
 
-
     public IPiece getPiece(int index) {
         return graph.getVertex(index).getData();
     }
 
     public void setPiece(int index, IPiece piece) {
         graph.getVertex(index).setData(piece);
+    }
+
+    public Graph<IPiece> getGraph() {
+        return graph;
     }
 
     public boolean isConnected(int place1, int place2) {
@@ -97,8 +99,8 @@ public class GameField {
                     i++;
                     continue;
                 }
-                if (cell.getData() instanceof Guess ) {
-                    if (cell.connectedOn(i) == null || cell.connectedOn(i).getData() instanceof Guess) {
+                if (cell.getData() instanceof Goose) {
+                    if (cell.connectedOn(i) == null || cell.connectedOn(i).getData() instanceof Goose) {
                         continue;
                     }
                 } else return false;
@@ -120,6 +122,6 @@ public class GameField {
     }
 
     public int getCountOfGeese() {
-        return countOfGeese = graph.getCountOfGeese();
+        return graph.getCountOfGeese();
     }
 }

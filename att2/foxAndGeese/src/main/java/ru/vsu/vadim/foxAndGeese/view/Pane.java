@@ -7,12 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.game.*;
-import ru.vsu.vadim.foxAndGeese.gameworld.GameField;
 import ru.vsu.vadim.foxAndGeese.piece.*;
+import javafx.scene.image.Image;
 
 
 public class Pane {
@@ -22,7 +23,8 @@ public class Pane {
     private static final Logger log = LoggerFactory.getLogger(Pane.class);
     private Integer posClicked = null;
     private Button btn = new Button("EndJump");
-
+    private static final String foxURL = "file:images\\fox.png";
+    private static final String geeseURL = "file:images\\geese.png";
 
 
     public Pane() {
@@ -51,13 +53,13 @@ public class Pane {
                     IPiece figure = game.getPiece(number);
                     Circle circle = new ViewNode<IPiece>(figure, number);
                     circle.setFill(Color.web("#009999"));
-                    if (figure instanceof Guess) {
-                        circle.setFill(Color.GRAY.darker());
+                    if (figure instanceof Goose) {
+                        circle.setFill(new ImagePattern(new Image(geeseURL)));
                     }
                     if (figure instanceof Fox) {
-                        circle.setFill(Color.ORANGE);
+                        circle.setFill(new ImagePattern(new Image(foxURL)));
                     }
-                    final int finalNumber = number; // проверка на ViewNode
+                    final int finalNumber = number;
                     circle.setOnMouseClicked(e -> {
                         if (posClicked == null) {
                             posClicked = finalNumber;
@@ -96,11 +98,11 @@ public class Pane {
                 ViewNode viewNode = (ViewNode) node;
                 int n = viewNode.getNumber();
                 viewNode.setFill(Color.web("#009999"));
-                if (game.getPiece(n) instanceof Guess) {
-                    viewNode.setFill(Color.GRAY.darker());
+                if (game.getPiece(n) instanceof Goose) {
+                    viewNode.setFill(new ImagePattern(new Image(geeseURL)));;
                 }
                 if (game.getPiece(n) instanceof Fox) {
-                    viewNode.setFill(Color.ORANGE);
+                    viewNode.setFill(new ImagePattern(new Image(foxURL)));
                 }
             }
         }

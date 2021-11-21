@@ -3,6 +3,7 @@ package ru.vsu.vadim.foxAndGeese.view;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
@@ -11,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.awt.*;
@@ -19,6 +22,7 @@ public class GuiViewer extends Application {
     private static GuiViewer viewer;
     private Pane pane;
     private BorderPane borderPane;
+    private static final Logger log = LoggerFactory.getLogger(GuiViewer.class);
 
     @Override
     public void start(Stage stage) {
@@ -37,7 +41,7 @@ public class GuiViewer extends Application {
     }
     public void createMenu() {
         MenuBar menuBar = new MenuBar();
-        Menu fileMenu = new Menu("Parameters");
+        Menu fileMenu = new Menu("Params");
         Menu baseScenario = new Menu("Scenario");
         baseScenario.setOnAction(actionEvent -> {
             //todo место для вызова сценария
@@ -49,6 +53,7 @@ public class GuiViewer extends Application {
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(actionEvent -> {
             Platform.exit();
+            log.info("The game was completed by the user");
             System.exit(0);
         });
 

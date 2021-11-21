@@ -1,13 +1,17 @@
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\game\Move.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\Main.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\piece\IPiece.java
+E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\requests\RequestHandler.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\gameworld\GameField.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\piece\Guess.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\piece\Fox.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\view\ViewNode.java
+E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\utils\GameUtils.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\graph\Graph.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\game\GameController.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\view\Pane.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\view\GuiViewer.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\game\GameStates.java
 E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\gameworld\Cell.java
+E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\requests\RequestMove.java
+E:\Program_Tasks\OOP\att2\foxAndGeese\src\main\java\ru\vsu\vadim\foxAndGeese\requests\RequestStart.java

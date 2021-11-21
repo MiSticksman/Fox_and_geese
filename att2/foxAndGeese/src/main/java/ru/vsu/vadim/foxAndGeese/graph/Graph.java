@@ -1,16 +1,20 @@
 package ru.vsu.vadim.foxAndGeese.graph;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.vsu.vadim.foxAndGeese.gameworld.Cell;
 import ru.vsu.vadim.foxAndGeese.piece.Fox;
-import ru.vsu.vadim.foxAndGeese.piece.Guess;
-import ru.vsu.vadim.foxAndGeese.piece.IPiece;
+import ru.vsu.vadim.foxAndGeese.piece.Goose;
 import ru.vsu.vadim.foxAndGeese.utils.GameUtils;
 
 import java.util.*;
 
+@JsonAutoDetect
 public class Graph<T>  {
-
+    @JsonProperty
     private List<Cell<T>> listVertex = new ArrayList<>();
+
     int vCount;
     int eCount;
 
@@ -28,6 +32,7 @@ public class Graph<T>  {
 
     public void addVertex(Cell<T> value) {
         listVertex.add(value);
+        vCount++;
     }
 
     public void removeVertex(Cell<T> value) {
@@ -55,6 +60,9 @@ public class Graph<T>  {
         }
     }
 
+    public int getGraphSize() {
+        return listVertex.size();
+    }
 
     public Cell<T>  getVertex(int i) {
         return listVertex.get(i);
@@ -77,13 +85,13 @@ public class Graph<T>  {
     public int getCountOfGeese() {
         List<Integer> list = new ArrayList<>();
         for (Cell cell: listVertex) {
-            if (cell.getData() instanceof Guess) {
+            if (cell.getData() instanceof Goose) {
                 list.add(cell.getNumber());
             }
         }
         return list.size();
     }
-
+    @JsonIgnore
     public Cell<T> getIndexOfFox() {
         for (Cell<T> cell: listVertex) {
             if (cell.getData() instanceof Fox) {

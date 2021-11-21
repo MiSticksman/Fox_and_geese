@@ -6,10 +6,10 @@ import javafx.scene.Node;
 import java.io.Serializable;
 
 @JsonAutoDetect
-public class Fox  implements IPiece, Serializable {
+public class Goose implements IPiece, Serializable {
 
     @Override
     public String toString() {
-        return "Fox{}";
+        return "Goose{}";
     }
 }
