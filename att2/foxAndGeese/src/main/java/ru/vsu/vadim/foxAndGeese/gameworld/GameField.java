@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.graph.Graph;
+import ru.vsu.vadim.foxAndGeese.jackson.GameFieldContext;
 import ru.vsu.vadim.foxAndGeese.piece.Fox;
 import ru.vsu.vadim.foxAndGeese.piece.Goose;
 import ru.vsu.vadim.foxAndGeese.piece.IPiece;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @JsonAutoDetect
 public class GameField {
 
-    private final Graph<IPiece> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис
+    private Graph<IPiece> graph; // настоящая реализация - граф из 33 вершин: 17 гусей, 1 лис
 
     private final int [][]  connections = new int[][] {
             {1, 3, -1, -1}, {2, 4, 0, -1}, {-1, 5, 1, -1}, {4, 8, -1, 0}, {5, 9, 3, 1},
@@ -123,5 +124,14 @@ public class GameField {
 
     public int getCountOfGeese() {
         return graph.getCountOfGeese();
+    }
+
+    public GameFieldContext context() {
+        return new GameFieldContext(graph);
+    }
+
+    public void fromContext(GameFieldContext context) {
+        graph = new Graph<>();
+        graph.fromContext(context.getField());
     }
 }

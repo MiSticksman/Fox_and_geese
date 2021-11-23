@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.game.GameController;
 import ru.vsu.vadim.foxAndGeese.view.GuiViewer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main {
@@ -16,6 +17,6 @@ public class Main {
         Application.launch(GuiViewer.class);
         log.info("Application started.");
         GameController gameController = new GameController();
-        gameController.serialization();
+       // gameController.serialization(new File( "src\\main\\resources", "save.json"), gameController);
     }
 }

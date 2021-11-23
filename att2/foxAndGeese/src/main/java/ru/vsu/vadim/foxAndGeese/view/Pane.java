@@ -1,17 +1,28 @@
 package ru.vsu.vadim.foxAndGeese.view;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.game.*;
+import ru.vsu.vadim.foxAndGeese.gameworld.GameField;
 import ru.vsu.vadim.foxAndGeese.piece.*;
 import javafx.scene.image.Image;
 
@@ -25,6 +36,7 @@ public class Pane {
     private Button btn = new Button("EndJump");
     private static final String foxURL = "file:images\\fox.png";
     private static final String geeseURL = "file:images\\geese.png";
+    private GuiViewer guiViewer = new GuiViewer();
 
 
     public Pane() {
@@ -44,9 +56,12 @@ public class Pane {
         draw();
     }
 
+    public void setGame(GameController game) {
+        this.game = game;
+    }
+
     public void draw() {
         int number = 0;
-
         for (int row = 6; row >= 0; row--) {
             for (int col = 0; col <= 6 ; col++) {
                 if ((row < 2 || row > 4) && (col > 1 && col < 5) || (row > 1 && row < 5)) {
@@ -66,6 +81,8 @@ public class Pane {
                         } else {
                             try {
                                 game.movesFromTo(posClicked, finalNumber);
+                                if (game.getGameStates() == GameStates.WINFOX || game.getGameStates() == GameStates.WINGEESE)
+                                this.endGame();
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
@@ -91,6 +108,38 @@ public class Pane {
         draw();
     }
 
+    public void endGame() {
+        Group group = new Group();
+        Stage stage = new Stage(StageStyle.UTILITY);
+        stage.setResizable(false);
+        Button button = new Button("Exit");
+        button.setLayoutX(110);
+        button.setLayoutY(100);
+        button.setPrefWidth(80);
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.exit(0);
+            }
+        });
+        Text text = new Text();
+        text.setFont(new Font("Arial", 30));
+        text.setFill(Color.RED);
+            if (game.getGameStates() == GameStates.WINFOX) {
+                text.setText("Fox WON");
+            }
+            if (game.getGameStates() == GameStates.WINGEESE) {
+                text.setText("Geese WON");
+            }
+        stage.centerOnScreen();
+        text.setX(70);
+        text.setY(70);
+        group.getChildren().addAll(text, button);
+        stage.setScene(new Scene(group, 300, 150));
+        stage.show();
+
+    }
+
     private void repaint() {
         btn.setVisible(game.getIsJump());
         for (Node node : gridPane.getChildren()) {
@@ -110,5 +159,13 @@ public class Pane {
 
     public GridPane getPane() {
         return gridPane;
+    }
+
+    public GameField getField() {
+        return game.getGameField();
+    }
+
+    public GameController getGame() {
+        return game;
     }
 }

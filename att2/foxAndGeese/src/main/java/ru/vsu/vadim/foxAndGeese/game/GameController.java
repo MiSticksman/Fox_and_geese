@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vsu.vadim.foxAndGeese.gameworld.GameField;
+import ru.vsu.vadim.foxAndGeese.jackson.GameContext;
 import ru.vsu.vadim.foxAndGeese.piece.Fox;
 import ru.vsu.vadim.foxAndGeese.piece.Goose;
 import ru.vsu.vadim.foxAndGeese.piece.IPiece;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
@@ -32,13 +35,14 @@ public class GameController {
     private void initialFillingOfTheField() {
         gameField = new GameField();
         for (int i = 0; i < gameField.getFieldSize(); i++) {
-            if (i < 14 || i == 19 || i == 20  || i == 26) {
+            if (i < 14 || i == 19 || i == 20 || i == 26) {
                 gameField.addPiece(new Goose(), i);
             }
             if (i == 16) {
                 gameField.addPiece(new Fox(), i);
             }
         }
+        gameStates = GameStates.WAITING;
     }
 
     public IPiece getPiece(int number) {
@@ -47,6 +51,7 @@ public class GameController {
 
     public void movesFromTo(int from, int to) throws Exception {
         int countOfGeese = gameField.getCountOfGeese();
+        gameStates = GameStates.PLAYING;
         if (priority && from != to && (gameField.getPiece(from) instanceof Fox)) {
             int acrossOne = gameField.indexOfConnectedAcrossOne(from, to);
             if (acrossOne != -1  && (!(gameField.getPiece(to) instanceof Goose))) {
@@ -78,11 +83,11 @@ public class GameController {
     public void checkWinner(int countOfGeese) throws Exception {
         if (countOfGeese < 5) {
             log.info("The fox won");
-            gameStates = GameStates.END;
+            gameStates = GameStates.WINFOX;
         }
         if (gameField.loseOfFOx()) {
             log.info("The geese won");
-            gameStates = GameStates.END;
+            gameStates = GameStates.WINGEESE;
         }
     }
 
@@ -101,6 +106,10 @@ public class GameController {
        }
     }
 
+    public GameField getGameField() {
+        return gameField;
+    }
+
     public boolean getIsJump() {
         return isJump;
     }
@@ -109,11 +118,24 @@ public class GameController {
         return priority;
     }
 
-    public void serialization() throws IOException {
-        StringWriter writer = new StringWriter();
+    public void serialization(File file, GameController game) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(writer, gameField);
-        String result = writer.toString();
-        System.out.println(result);
+        mapper.writeValue(file, game);
+    }
+
+    public GameStates getGameStates() {
+        return gameStates;
+    }
+
+    public GameContext context() {
+        return new GameContext(gameStates, gameField, priority, isJump);
+    }
+
+    public void fromContext(GameContext gc) {
+        gameStates = gc.getGameState();
+        gameField = new GameField();
+        gameField.fromContext(gc.getGameField());
+        priority = gc.isPriority();
+        isJump = gc.isJump();
     }
 }

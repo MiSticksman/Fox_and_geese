@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.vsu.vadim.foxAndGeese.gameworld.Cell;
+import ru.vsu.vadim.foxAndGeese.jackson.CellContext;
+import ru.vsu.vadim.foxAndGeese.jackson.GraphContext;
 import ru.vsu.vadim.foxAndGeese.piece.Fox;
 import ru.vsu.vadim.foxAndGeese.piece.Goose;
 import ru.vsu.vadim.foxAndGeese.utils.GameUtils;
@@ -13,8 +15,7 @@ import java.util.*;
 @JsonAutoDetect
 public class Graph<T>  {
     @JsonProperty
-    private List<Cell<T>> listVertex = new ArrayList<>();
-
+    private final List<Cell<T>> listVertex = new ArrayList<>();
     int vCount;
     int eCount;
 
@@ -99,5 +100,29 @@ public class Graph<T>  {
             }
         }
         return null;
+    }
+
+    public GraphContext<T> context() {
+        return new GraphContext<>(listVertex, vCount, eCount);
+    }
+
+    public void fromContext(GraphContext<T> context) {
+        vCount = context.getvCount();
+        eCount = context.geteCount();
+        for (CellContext<T> vertexContext: context.getListVertex()) {
+            Cell<T> vertex = new Cell<>(vertexContext.getNumber(), vertexContext.getData());
+            listVertex.add(vertex);
+        }
+        int i = 0;
+        for (CellContext<T> vertexContext: context.getListVertex()) {
+            int j = 0;
+            for (Integer connected : vertexContext.getCommunications()) {
+                if (connected != null) {
+                    createEdge(i, connected, j);
+                }
+                j++;
+            }
+            i++;
+        }
     }
 }

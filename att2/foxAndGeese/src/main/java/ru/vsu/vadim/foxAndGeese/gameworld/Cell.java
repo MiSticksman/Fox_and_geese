@@ -3,6 +3,8 @@ package ru.vsu.vadim.foxAndGeese.gameworld;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.vsu.vadim.foxAndGeese.jackson.CellContext;
+import ru.vsu.vadim.foxAndGeese.jackson.GraphContext;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,11 +13,10 @@ import java.util.List;
 @JsonAutoDetect
 public class Cell<T>  implements Serializable {
 
-    @JsonIgnore
+
     private int number;
-    @JsonIgnore
+    @JsonProperty
     private T data;
-    @JsonIgnore
     private Cell<T>[] communications;
 
     public Cell(int number, T data) {
@@ -63,10 +64,14 @@ public class Cell<T>  implements Serializable {
         return number == cell.number;
     }
 
+    public CellContext context() {
+        return new CellContext(number, data, communications);
+    }
+
     @JsonProperty
     public String cells() {
         StringBuilder str = new StringBuilder();
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             Cell<T> cell = communications[i];
             if (i != 3) {
                 if (cell != null) {
@@ -82,10 +87,14 @@ public class Cell<T>  implements Serializable {
                 }
             }
         }
-        return "Cell{" +
-                "number= " + number +
-                ", data= " + (data == null? "null" : data) +
-                ", communications= " + "{" + str + "}" +
-                '}';
+        return "[" + str + "]";
     }
+//                '}';
+//        return "Cell{" +
+//                "number = " + number +
+//                ", data = " + data +
+//                ", communications = " + "{" + str + "}" +
+//                '}';
+//    }
+
 }
