@@ -26,6 +26,7 @@ import ru.vsu.vadim.foxAndGeese.game.GameController;
 import ru.vsu.vadim.foxAndGeese.game.GameStates;
 import ru.vsu.vadim.foxAndGeese.jackson.GameContext;
 import ru.vsu.vadim.foxAndGeese.jackson.GameJsonDeserializer;
+import ru.vsu.vadim.foxAndGeese.utils.GameUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,8 +35,6 @@ public class GuiViewer extends Application {
     private Pane pane;
     private BorderPane borderPane;
     private static final Logger log = LoggerFactory.getLogger(GuiViewer.class);
-    private Command command = new Command();
-
 
 
     @Override
@@ -63,12 +62,18 @@ public class GuiViewer extends Application {
         saveFileItem.setOnAction(actionEvent -> {
             FileChooser fileOpener = new FileChooser();
             fileOpener.setTitle("Select file");
-            fileOpener.setInitialDirectory(new File("saves"));
+            File savesDir = GameUtils.getAbsolutePathOfSavesDirectory().toFile();
+            if (savesDir.mkdir()) {
+                fileOpener.setInitialDirectory(savesDir);
+            } else {
+                File file = new File(savesDir.getAbsolutePath());
+                fileOpener.setInitialDirectory(file);
+            }
             fileOpener.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", ".json"));
             try {
                 //pane.getGame().serialization(fileOpener.showSaveDialog(new Stage()), pane.getGame());
                 GameContext gameContext = pane.getGame().context();
-                GameContext.save(fileOpener.showSaveDialog(new Stage()), gameContext);
+                gameContext.save(fileOpener.showSaveDialog(new Stage()), gameContext);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,8 +86,9 @@ public class GuiViewer extends Application {
             fileOpener.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
             //deserialization(fileOpener.showOpenDialog(new Stage()));
             try {
-                GameContext gameContext1 = GameContext.read(fileOpener.showOpenDialog(new Stage()));
-                pane.getGame().fromContext(gameContext1);
+                GameContext gameContext1 = new GameContext();
+                GameContext gameContext = gameContext1.read(fileOpener.showOpenDialog(new Stage()));
+                pane.getGame().fromContext(gameContext);
                 pane.draw();
             } catch (IOException e) {
                 e.printStackTrace();

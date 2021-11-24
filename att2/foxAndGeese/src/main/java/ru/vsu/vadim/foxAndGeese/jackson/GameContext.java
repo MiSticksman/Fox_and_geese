@@ -58,16 +58,15 @@ public class GameContext {
 
     }
 
-    public static void save(File file, GameContext gc) throws IOException {
+    public void save(File file, GameContext gc) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         objectMapper.writeValue(file, gc);
     }
 
-    public static GameContext read(File file) throws IOException {
+    public GameContext read(File file) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
-        //objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return objectMapper.readValue(file, GameContext.class);
     }
 

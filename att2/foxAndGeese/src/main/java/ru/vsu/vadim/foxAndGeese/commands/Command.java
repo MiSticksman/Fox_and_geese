@@ -14,7 +14,4 @@ public class Command {
     public String getCmd() {
         return cmd;
     }
-
-
-
 }

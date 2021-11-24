@@ -1,10 +1,8 @@
 package ru.vsu.vadim.foxAndGeese.view;
 
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,7 +14,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
@@ -106,7 +103,7 @@ public class Pane {
     public void newGame() {
         game.newGame();
         draw();
-    } //restart game
+    }
 
     public void endGame() {
         Group group = new Group();
