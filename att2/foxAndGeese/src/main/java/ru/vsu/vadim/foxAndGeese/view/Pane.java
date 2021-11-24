@@ -106,7 +106,7 @@ public class Pane {
     public void newGame() {
         game.newGame();
         draw();
-    }
+    } //restart game
 
     public void endGame() {
         Group group = new Group();
@@ -116,12 +116,7 @@ public class Pane {
         button.setLayoutX(110);
         button.setLayoutY(100);
         button.setPrefWidth(80);
-        button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.exit(0);
-            }
-        });
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> System.exit(0));
         Text text = new Text();
         text.setFont(new Font("Arial", 30));
         text.setFill(Color.RED);
@@ -137,7 +132,6 @@ public class Pane {
         group.getChildren().addAll(text, button);
         stage.setScene(new Scene(group, 300, 150));
         stage.show();
-
     }
 
     private void repaint() {
