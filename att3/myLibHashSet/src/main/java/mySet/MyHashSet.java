@@ -3,10 +3,6 @@ package mySet;
 
 import mySet.hashMap.MyHashMap;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 public class MyHashSet<T> {
 
     private MyHashMap<T, Object> myHashMap;

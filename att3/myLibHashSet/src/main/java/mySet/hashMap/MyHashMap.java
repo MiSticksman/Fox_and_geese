@@ -1,19 +1,11 @@
 package mySet.hashMap;
 
-/**
- * @author lzy
- * @date 2018/1/18
- */
 public class MyHashMap<K, V>  {
 
-    /**
-     * Коэффициент загрузки по умолчанию
-     */
+
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
-    /**
-     * Начальная длина по умолчанию
-     */
-    private static final int DEFAULT_LENGTH = 4;
+
+    private static final int DEFAULT_LENGTH = 16;
 
     private int arrayLength;
 
