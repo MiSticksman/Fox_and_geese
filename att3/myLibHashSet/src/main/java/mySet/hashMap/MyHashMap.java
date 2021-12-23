@@ -5,7 +5,7 @@ public class MyHashMap<K, V>  {
 
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private static final int DEFAULT_LENGTH = 16;
+    private static final int DEFAULT_LENGTH = 4;
 
     private int arrayLength;
 
@@ -61,7 +61,7 @@ public class MyHashMap<K, V>  {
 
         @Override
         public String toString() {
-            return key + "=" + value;
+            return key + " = " + value;
         }
     }
 
@@ -76,7 +76,7 @@ public class MyHashMap<K, V>  {
         return null;
     }
 
-    public void put(K key, V value) {
+    public V put(K key, V value) {
         int hashCode = hash(key);
         int index = indexForArray(hashCode, arrayLength);
         Node<K, V> node = tables[index];
@@ -87,8 +87,9 @@ public class MyHashMap<K, V>  {
             while(true) {
                 K nodeKey = node.getKey();
                 if ((key == null && nodeKey == null) || (key != null && key.equals(nodeKey))) {
+                    V oldValue = node.getValue();
                     node.setValue(value);
-                    break;
+                    return  oldValue;
                 }
                 if (node.next == null) {
                     node.next = new Node<>(key, value, hashCode, null);
@@ -99,14 +100,14 @@ public class MyHashMap<K, V>  {
                 node = node.next;
             }
         }
-
-        // Определяем, хотите ли вы развернуть, если вы просто замените значение без добавления элементов, оно не будет выполнено здесь
         if (size > arrayLength * loadFactor) {
             resize();
         }
+        return null;
     }
 
     public void clear() {
+        arrayLength = DEFAULT_LENGTH;
         tables = new Node[arrayLength];
         size = 0;
     }
@@ -120,15 +121,17 @@ public class MyHashMap<K, V>  {
     }
 
     private int indexForArray(int hashCode, int arrayLength) {
-        return Math.abs(hashCode) % arrayLength;
+        return Math.abs(hashCode) % (arrayLength - 1);
     }
 
-    private void resize() {
+    private Node<K, V>[] resize() {
         int newLength = arrayLength * 2;
         Node<K, V>[] newTables = new Node[newLength];
         for (int i = 0; i < arrayLength; i++) {
             Node<K, V> node = tables[i];
             while(node != null) {
+                Node<K, V> temp = node.next;
+                node.next = null;
                  int hash = hash(node.getKey());
                  int index = indexForArray(hash, newLength);
                  Node<K, V> node1 = newTables[index];
@@ -141,27 +144,12 @@ public class MyHashMap<K, V>  {
                         //newTables[index] = node;
                         node1.next = node;
                     }
-                node = node.next;
+                node = temp;
             }
         }
-//        Set<Map.Entry<K, V>> entrySet = entrySet();
-//        int newSize = 0;
-//        for (Map.Entry entry : entrySet) {
-//            Node<K, V> node = (Node<K, V>) entry;
-//            node.next = null;
-//            int index = indexForArray(node.hashCode, arrayLength);
-//            Node<K, V> indexNode = newTables[index];
-//            if (indexNode == null) {
-//                newTables[index] = node;
-//            } else {
-//                while (indexNode.next != null) {
-//                    indexNode = indexNode.next;
-//                }
-//                indexNode.next = node;
-//            }
-//        }
         tables = newTables;
         arrayLength = newLength;
+        return newTables;
     }
 
     public void remove(K deleteKey) {
@@ -223,15 +211,4 @@ public class MyHashMap<K, V>  {
             }
         }
     }
-
-//    public Set<Map.Entry<K, V>> entrySet() {
-//        Set<Map.Entry<K, V>> set = new HashSet<>();
-//        for (Node<K, V> node : tables) {
-//            while (node != null) {
-//                set.add((Map.Entry<K, V>) node);
-//                node = node.next;
-//            }
-//        }
-//        return set;
-//    }
 }

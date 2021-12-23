@@ -7,6 +7,8 @@ public class MyHashSet<T> {
 
     private MyHashMap<T, Object> myHashMap;
 
+    private static final Object PRESENT = new Object();
+
     public MyHashSet() {
         myHashMap = new MyHashMap<>();
     }
@@ -15,8 +17,8 @@ public class MyHashSet<T> {
         myHashMap = new MyHashMap<T, Object>(initialCapacity, loadFactor);
     }
 
-    public void put(T value) {
-        myHashMap.put(value, null);
+    public boolean put(T value) {
+        return myHashMap.put(value, PRESENT) == null;
     }
 
     public void remove(T value) {
