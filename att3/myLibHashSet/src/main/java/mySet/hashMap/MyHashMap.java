@@ -1,7 +1,11 @@
 package mySet.hashMap;
 
-public class MyHashMap<K, V>  {
+import mySet.MyEntry;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
 
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
@@ -11,7 +15,8 @@ public class MyHashMap<K, V>  {
 
     private int size;
 
-    private float loadFactor;
+    private final float LOAD_FACTOR;
+
     private Node<K, V>[] tables;
 
     public MyHashMap(int length, float loadFactor) {
@@ -22,7 +27,7 @@ public class MyHashMap<K, V>  {
             throw new IllegalArgumentException("Коэффициент загрузки должен быть больше 0");
         }
         this.arrayLength = length;
-        this.loadFactor = loadFactor;
+        this.LOAD_FACTOR = loadFactor;
         tables = new Node[length];
     }
 
@@ -34,16 +39,14 @@ public class MyHashMap<K, V>  {
         this(length, DEFAULT_LOAD_FACTOR);
     }
 
-    protected class Node<K, V>  {
+    protected class Node<K, V> {
         private K key;
         private V value;
         private Node<K, V> next;
-        private int hashCode;
 
-        public Node(K key, V value, int hashCode, Node<K, V> next) {
+        public Node(K key, V value, Node<K, V> next) {
             this.key = key;
             this.value = value;
-            this.hashCode = hashCode;
             this.next = next;
         }
 
@@ -81,30 +84,30 @@ public class MyHashMap<K, V>  {
         int index = indexForArray(hashCode, arrayLength);
         Node<K, V> node = tables[index];
         if (node == null) {
-            tables[index] = new Node(key, value, hashCode, null);
+            tables[index] = new Node(key, value, null);
             size++;
         } else {
-            while(true) {
+            while (true) {
                 K nodeKey = node.getKey();
                 if ((key == null && nodeKey == null) || (key != null && key.equals(nodeKey))) {
                     V oldValue = node.getValue();
                     node.setValue(value);
-                    return  oldValue;
+                    return oldValue;
                 }
                 if (node.next == null) {
-                    node.next = new Node<>(key, value, hashCode, null);
-                    //node = node.next;
+                    node.next = new Node<>(key, value, null);
                     size++;
                     break;
                 }
                 node = node.next;
             }
         }
-        if (size > arrayLength * loadFactor) {
+        if (size > arrayLength * LOAD_FACTOR) {
             resize();
         }
         return null;
     }
+
 
     public void clear() {
         arrayLength = DEFAULT_LENGTH;
@@ -129,21 +132,21 @@ public class MyHashMap<K, V>  {
         Node<K, V>[] newTables = new Node[newLength];
         for (int i = 0; i < arrayLength; i++) {
             Node<K, V> node = tables[i];
-            while(node != null) {
+            while (node != null) {
                 Node<K, V> temp = node.next;
                 node.next = null;
-                 int hash = hash(node.getKey());
-                 int index = indexForArray(hash, newLength);
-                 Node<K, V> node1 = newTables[index];
-                    if (node1 == null) {
-                        newTables[index] = node;
-                    } else {
-                        while (node1.next != null) {
-                            node1 = node1.next;
-                        }
-                        //newTables[index] = node;
-                        node1.next = node;
+                int hash = hash(node.getKey());
+                int index = indexForArray(hash, newLength);
+                Node<K, V> node1 = newTables[index];
+                if (node1 == null) {
+                    newTables[index] = node;
+                } else {
+                    while (node1.next != null) {
+                        node1 = node1.next;
                     }
+                    //newTables[index] = node;
+                    node1.next = node;
+                }
                 node = temp;
             }
         }
@@ -158,7 +161,6 @@ public class MyHashMap<K, V>  {
         if (tables[index] != null) {
             Node<K, V> previous = null;
             Node<K, V> current = tables[index];
-
             while (current != null) {
                 if (current.key.equals(deleteKey)) {
                     if (previous == null) {
@@ -174,7 +176,7 @@ public class MyHashMap<K, V>  {
         }
     }
 
-    public boolean contains(K key){
+    public boolean contains(K key) {
         int hash = hash(key);
         int index = indexForArray(hash, arrayLength);
         if (tables[index] != null) {
@@ -188,12 +190,16 @@ public class MyHashMap<K, V>  {
         return false;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     public void display() {
-        for (int i = 0; i < arrayLength; i++){
-            if (tables[i]!=null){
-               Node<K, V> node = tables[i];
-                while (node != null){
-                    System.out.println(node.key  + ":" + node.value);
+        for (int i = 0; i < arrayLength; i++) {
+            if (tables[i] != null) {
+                Node<K, V> node = tables[i];
+                while (node != null) {
+                    System.out.println(node.key + ":" + node.value);
                     node = node.next;
                 }
             }
@@ -210,5 +216,55 @@ public class MyHashMap<K, V>  {
                 }
             }
         }
+    }
+
+    @Override
+    public Iterator<MyEntry<K, V>> iterator() {
+        class MyHashMapIteratorMyEntry implements Iterator<MyEntry<K, V>> {
+            MyEntry<K, V> myEntry = new MyEntry<>(null, null);
+            Node<K, V> curr = new Node<>(null, null, null);
+            int index = 0;
+            boolean check = false;
+
+            @Override
+            public boolean hasNext() {
+                if (check)
+                    return curr != null;
+                else if (arrayLength > index) {
+                    if (tables[index] == null) {
+                        index++;
+                        return hasNext();
+                    }
+                    return tables[index] != null;
+                }
+                return false;
+            }
+
+            @Override
+            public MyEntry<K, V> next() {
+                if (hasNext()) {
+                    if (check) {
+                        myEntry.setKey(curr.key);
+                        myEntry.setValue(curr.value);
+                        curr = curr.next;
+                        if (curr == null) {
+                            check = false;
+                            index++;
+                        }
+                        return myEntry;
+                    } else {
+                        myEntry.setKey(tables[index].getKey());
+                        myEntry.setValue(tables[index].getValue());
+                        curr = tables[index].next;
+                        if (curr == null) {
+                            index++;
+                        } else check = true;
+                    }
+                    return myEntry;
+                }
+                throw new NoSuchElementException("sosi");
+            }
+        }
+        return new MyHashMapIteratorMyEntry();
     }
 }
