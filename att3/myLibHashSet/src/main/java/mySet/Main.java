@@ -1,62 +1,61 @@
 package mySet;
 
+import mySet.entry.MyEntry;
+import mySet.entry.MyEntryMulti;
 import mySet.hashMap.MyHashMap;
-
-
-import java.util.HashSet;
-import java.util.Iterator;
+import mySet.set.MyHashMultiSet;
+import mySet.set.MyHashSet;
 
 public class Main {
 
     public static void main(String[] args) {
 
+       MyHashMap<String, Integer> myHashMap = new MyHashMap<>();
+        myHashMap.put("one", 1);
+        myHashMap.put("two", 2);
+        myHashMap.put("three", 3);
+        myHashMap.put("four", 4);
+        myHashMap.put(null, 100);
+        myHashMap.put("five", 5);
+        myHashMap.put("six", 6);
+        myHashMap.put("seven", 7);
+        myHashMap.put("seven", 8);
+        myHashMap.put("eight", 8);
+        myHashMap.put("eight", 314);
+        myHashMap.put("nine", 9);
+        myHashMap.put("nine", 4141);
+        myHashMap.put("six", 666);
+        myHashMap.put("ten", 10);
+        myHashMap.put("eleven", 11);
+        for (MyEntry entry: myHashMap) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
 
-//       MyHashMap<String, Integer> myHashMap = new MyHashMap<>();
-//        myHashMap.put("one", 1);
-//        myHashMap.put("two", 2);
-//        myHashMap.put("three", 3);
-//       // myHashMap.put("one", 5);
-//        //myHashMap.put("dsgsg", 7);
-//        //myHashMap.put("three", 4);
-//        myHashMap.put("four", 4);
-//        myHashMap.put(null, 100);
-//        myHashMap.put("five", 5);
-//        myHashMap.put("six", 6);
-//        myHashMap.put("seven", 7);
-//        myHashMap.put("eight", 8);
-//        myHashMap.put("nine", 9);
-//        myHashMap.put("ten", 10);
-//        myHashMap.put("eleven", 11);
-//        for (MyEntry entry: myHashMap) {
-//            System.out.println(entry.getKey() + " " + entry.getValue());
-//        }
 
-
-
-        /*MyHashSet<Integer> myHashSet = new MyHashSet<>();
-        myHashSet.put(11);
-        myHashSet.put(2);
-        myHashSet.put(1);
-        myHashSet.put(4);
-        myHashSet.put(5);
-        myHashSet.put(14);
-        myHashSet.put(14);
-        myHashSet.put(41);
+        MyHashSet<Integer> myHashSet = new MyHashSet<>();
+        myHashSet.add(11);
+        myHashSet.add(2);
+        myHashSet.add(1);
+        myHashSet.add(4);
+        myHashSet.add(5);
+        myHashSet.add(14);
+        myHashSet.add(14);
+        myHashSet.add(41);
 //        myHashSet.display();
         for (Integer a: myHashSet) {
             System.out.println(a);
-        }*/
+        }
 
         MyHashMultiSet<String> myHashMultiSet = new MyHashMultiSet<>();
-        myHashMultiSet.put("a");
-        myHashMultiSet.put("b");
-        myHashMultiSet.put("c");
-        myHashMultiSet.put("b");
-        myHashMultiSet.put("a");
-        myHashMultiSet.put("c");
-        myHashMultiSet.put("a");
-        myHashMultiSet.put("d");
-        myHashMultiSet.put("f");
+        myHashMultiSet.add("a");
+        myHashMultiSet.add("b");
+        myHashMultiSet.add("c");
+        myHashMultiSet.add("b");
+        myHashMultiSet.add("a");
+        myHashMultiSet.add("c");
+        myHashMultiSet.add("a");
+        myHashMultiSet.add("d");
+        myHashMultiSet.add("f");
         myHashMultiSet.remove("b");
         myHashMultiSet.remove("b");
         myHashMultiSet.remove("a");
@@ -74,26 +73,6 @@ public class Main {
         System.out.println(myHashMultiSet.isEmpty());
 
 
-//        HashMap<String, Integer> hashMap = new HashMap<>();
-//        hashMap.put("one", 1);
-//        hashMap.put("two", 2);
-//        hashMap.put("three", 3);
-//        hashMap.put("one", 5);
-//        hashMap.put("dsgsg", 7);
-//        hashMap.put("three", 4);
-//        for (Map.Entry<String, Integer> entry: hashMap.entrySet()) {
-//            System.out.println(entry.getKey() + " " + entry.getValue());
-//        }
-
-       /*HashSet<String> hashSet = new HashSet<>();
-        hashSet.add("Vadim");
-        hashSet.add("Pasha");
-        hashSet.add("Denis");
-        hashSet.add("Serega");
-        System.out.println(hashSet.contains("Vadim"));
-        for (String entry: hashSet) {
-            System.out.println(entry);
-        }*/
 
     }
 }

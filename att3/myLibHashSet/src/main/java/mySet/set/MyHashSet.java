@@ -1,6 +1,7 @@
-package mySet;
+package mySet.set;
 
 
+import mySet.entry.MyEntry;
 import mySet.hashMap.MyHashMap;
 
 import java.util.Iterator;
@@ -23,12 +24,20 @@ public class MyHashSet<T> implements Iterable<T> {
         myHashMap = new MyHashMap<>(initialCapacity);
     }
 
-    public boolean put(T value) {
+    public boolean add(T value) {
         return myHashMap.put(value, PRESENT) == null;
     }
 
     public void remove(T value) {
         myHashMap.remove(value);
+    }
+
+    public int size() {
+        return myHashMap.size();
+    }
+
+    public int getLength() {
+        return myHashMap.getArrayLength();
     }
 
     public boolean contains(T value) {

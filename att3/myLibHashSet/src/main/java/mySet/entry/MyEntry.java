@@ -1,4 +1,4 @@
-package mySet;
+package mySet.entry;
 
 public class MyEntry<K, V> {
     private K key;

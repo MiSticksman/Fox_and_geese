@@ -1,4 +1,4 @@
-package mySet;
+package mySet.entry;
 
 public class MyEntryMulti<T> {
     private T key;

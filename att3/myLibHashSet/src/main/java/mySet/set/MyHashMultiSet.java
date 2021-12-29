@@ -1,5 +1,7 @@
-package mySet;
+package mySet.set;
 
+import mySet.entry.MyEntry;
+import mySet.entry.MyEntryMulti;
 import mySet.hashMap.MyHashMap;
 
 import java.util.Iterator;
@@ -9,8 +11,12 @@ public class MyHashMultiSet<T> extends MyHashSet<T> {
         myHashMap = new MyHashMap<T, Object>();
     }
 
+    public MyHashMultiSet(int initialCapacity, float loadFactor) {
+        myHashMap = new MyHashMap<T, Object>(initialCapacity, loadFactor);
+    }
+
     @Override
-    public boolean put(T value) {
+    public boolean add(T value) {
         if (myHashMap.contains(value)) {
             myHashMap.put(value, (Integer) myHashMap.get(value) + 1);
         } else {
@@ -27,8 +33,6 @@ public class MyHashMultiSet<T> extends MyHashSet<T> {
             myHashMap.put(value, (Integer) myHashMap.get(value) - 1);
         }
     }
-
-
 
     public Iterable<MyEntryMulti<T>> getIteratorByValueAndCount() {
         class MyHashIterable implements Iterable<MyEntryMulti<T>> {

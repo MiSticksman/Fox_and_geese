@@ -1,6 +1,6 @@
 package mySet.hashMap;
 
-import mySet.MyEntry;
+import mySet.entry.MyEntry;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -9,7 +9,7 @@ public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
 
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private static final int DEFAULT_LENGTH = 4;
+    private static final int DEFAULT_LENGTH = 16;
 
     private int arrayLength;
 
@@ -42,11 +42,13 @@ public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
     protected class Node<K, V> {
         private K key;
         private V value;
+        private int hash;
         private Node<K, V> next;
 
-        public Node(K key, V value, Node<K, V> next) {
+        public Node(K key, V value, int hash, Node<K, V> next) {
             this.key = key;
             this.value = value;
+            this.hash = hash;
             this.next = next;
         }
 
@@ -84,18 +86,18 @@ public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
         int index = indexForArray(hashCode, arrayLength);
         Node<K, V> node = tables[index];
         if (node == null) {
-            tables[index] = new Node(key, value, null);
+            tables[index] = new Node(key, value, hashCode,null);
             size++;
         } else {
             while (true) {
                 K nodeKey = node.getKey();
-                if ((key == null && nodeKey == null) || (key != null && key.equals(nodeKey))) {
+                if ((node.hash == hashCode && node.getKey() == key) || (key != null && key.equals(nodeKey))) {
                     V oldValue = node.getValue();
                     node.setValue(value);
                     return oldValue;
                 }
                 if (node.next == null) {
-                    node.next = new Node<>(key, value, null);
+                    node.next = new Node<>(key, value, hashCode,null);
                     size++;
                     break;
                 }
@@ -117,6 +119,10 @@ public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
 
     public int size() {
         return size;
+    }
+
+    public int getArrayLength() {
+        return arrayLength;
     }
 
     public int hash(K key) {
@@ -222,7 +228,7 @@ public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
     public Iterator<MyEntry<K, V>> iterator() {
         class MyHashMapIteratorMyEntry implements Iterator<MyEntry<K, V>> {
             MyEntry<K, V> myEntry = new MyEntry<>(null, null);
-            Node<K, V> curr = new Node<>(null, null, null);
+            Node<K, V> curr = new Node<>(null, null, 0,null);
             int index = 0;
             boolean check = false;
 
@@ -262,7 +268,7 @@ public class MyHashMap<K, V> implements Iterable<MyEntry<K, V>> {
                     }
                     return myEntry;
                 }
-                throw new NoSuchElementException("sosi");
+                throw new NoSuchElementException("exception");
             }
         }
         return new MyHashMapIteratorMyEntry();

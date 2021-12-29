@@ -1,6 +1,14 @@
+
+import mySet.entry.MyEntryMulti;
+import mySet.set.MyHashMultiSet;
+import mySet.set.MyHashSet;
+
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hi");
+        Console console = new Console();
+        console.start();
     }
 }
